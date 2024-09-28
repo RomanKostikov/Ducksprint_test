@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: my_app_container
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./app:/app
+    # Если ваше приложение не использует порты, удалите раздел ports
+    ports:
+      - "8000:8000"
