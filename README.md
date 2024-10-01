@@ -77,10 +77,10 @@
 https://it-solution.kdb24.ru/article/read/0860fe1237944d8891f223132633e3ba/
 Запуск ngrok
 ```
-./ngrok.exe config add-authtoken 2ksPHHN6Jsxu9lVpLhUrRerH5HW_4QR3ecZJdtF8ciHSxg1Sr
+./ngrok.exe config add-authtoken your_auth_token
 ```
 ```
-./ngrok.exe http --domain=sacred-walleye-broadly.ngrok-free.app 8000
+./ngrok.exe http --domain=yourdomain.ngrok-free.app 8000
 ```
 
 #### Avito API
@@ -115,7 +115,7 @@ https://it-solution.kdb24.ru/article/read/0860fe1237944d8891f223132633e3ba/
 Откройте терминал или командную строку и выполните команду для клонирования репозитория:
 
 ```bash
-git clone <ссылка_на_ваш_репозиторий>
+git clone https://github.com/RomanKostikov/Ducksprint_test.git
 ```
 
 #### 2. Перейдите в директорию проекта

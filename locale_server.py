@@ -1,11 +1,32 @@
-from flask import Flask, request
+from flask import Flask, request, redirect
 import requests
+import os
+from dotenv import load_dotenv
+
+# Загрузка переменных окружения из .env файла
+load_dotenv()
 
 app = Flask(__name__)
 
-CLIENT_ID = 'your_client_id' # выдают при подписке
-CLIENT_SECRET = 'your_client_secret' # выдают при подписке
-REDIRECT_URI = 'https://example.com/callback'
+# Получаем данные из .env
+CLIENT_ID = os.getenv('CLIENT_ID')
+CLIENT_SECRET = os.getenv('CLIENT_SECRET')
+REDIRECT_URI = os.getenv('REDIRECT_URI')
+
+
+@app.route('/')
+def home():
+    return 'Приложение работает. Перейдите по /auth для начала авторизации.'
+
+
+@app.route('/auth')
+def auth():
+    # Формируем URL для авторизации
+    auth_url = f'https://www.avito.ru/oauth/authorize?' \
+               f'client_id={CLIENT_ID}&' \
+               f'response_type=code&' \
+               f'redirect_uri={REDIRECT_URI}'
+    return redirect(auth_url)
 
 
 @app.route('/callback')
@@ -40,9 +61,10 @@ def callback():
     if 'access_token' not in token_json:
         return f"Ошибка при получении токена: {token_json}", 400
 
-    # Получаем токен доступа
+    # Получаем токен доступа и токен для обновления
     access_token = token_json.get('access_token')
-    return f'Access Token: {access_token}'
+    refresh_token = token_json.get('refresh_token')
+    return f'Access Token: {access_token}<br>Refresh Token: {refresh_token}'
 
 
 if __name__ == '__main__':
